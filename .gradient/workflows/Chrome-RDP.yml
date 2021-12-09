@@ -1,0 +1,24 @@
+name: Chrome Remote Desktop
+
+on: 
+  workflow_dispatch:
+    inputs:
+      authcode:
+        description: 'CRD kodu'
+        required: true
+      pincode:
+        description: 'Şifre'
+        required: true
+  
+jobs:
+  build:
+    runs-on: Windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Kurulum başlatılıyor... 
+      run: ./setup.ps1
+    - name: CRD yükleniyor... 
+      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - name: Sistem çalışıyor... 
+      run: ./timeout.ps1
